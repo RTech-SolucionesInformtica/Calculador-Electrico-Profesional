@@ -17,5 +17,5 @@ Siguientes mejoras sugeridas:
 - Cálculo automático de rollos (ej. rollo = 100 m) y desglose por secciones.
 - Tests unitarios si se añade lógica crítica en Node.
 
-Autor: Diseñador Web Juan Pablo Ridríguez
+Autor: Diseñador Web Juan Pablo Rodríguez
 Fecha: 2026
