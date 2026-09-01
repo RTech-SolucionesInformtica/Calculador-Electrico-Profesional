@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Calculador Eléctrico Profesional - R-TECH (Esc. José Marti)</title>
+
+  <!-- Tailwind CDN (oficial) -->
+  <script src="https://cdn.tailwindcss.com" defer></script>
+
+  <!-- Librería para exportar a PDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js" crossorigin="anonymous" defer></script>
+
+  <!-- Tipografías: Inter (UI) + Merriweather (Headings) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="styles.css">
+
+  <meta name="description" content="Herramienta de cómputo métrico de cableado conforme AEA/IRAM.">
+</head>
+<body class="bg-slate-100 min-h-screen font-sans antialiased text-slate-900 flex flex-col justify-between">
+
+  <div class="max-w-6xl w-full mx-auto p-6 md:p-8 flex-grow">
+    <header class="header p-6 rounded-2xl shadow-lg mb-8 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-4">
+        <!-- Inline logo SVG (multímetro) -->
+        <div id="brand-logo-inline" class="h-14 w-14" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240" role="img" aria-label="Multímetro R-TECH">
+            <defs>
+              <linearGradient id="gAccent" x1="0" x2="1">
+                <stop offset="0" stop-color="#00E5FF"/>
+                <stop offset="1" stop-color="#00B8D9"/>
+              </linearGradient>
+              <filter id="shadowLogo" x="-50%" y="-50%" width="200%" height="200%">
+                <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000" flood-opacity="0.25"/>
+              </filter>
+            </defs>
+
+            <g transform="scale(0.18)">
+              <rect x="28" y="18" width="184" height="204" rx="18" ry="18" fill="#0b1220"/>
+              <rect x="34" y="24" width="172" height="192" rx="14" ry="14" fill="#0f172a" filter="url(#shadowLogo)"/>
+              <rect x="56" y="44" width="128" height="64" rx="6" ry="6" fill="rgba(255,255,255,0.04)"/>
+              <rect x="62" y="50" width="116" height="52" rx="4" ry="4" fill="url(#gAccent)" opacity="0.18"/>
+              <g transform="translate(0,6)">
+                <text x="120" y="86" text-anchor="middle" font-family="Merriweather, Inter, Arial, sans-serif" font-weight="700" font-size="36" fill="url(#gAccent)" opacity="0.95">R</text>
+              </g>
+              <circle cx="120" cy="128" r="28" fill="#0b1220" stroke="#1f2937" stroke-width="3"/>
+              <circle cx="120" cy="128" r="18" fill="#111827"/>
+              <rect x="118" y="110" width="4" height="24" rx="2" fill="url(#gAccent)" transform="rotate(45 120 122)"/>
+              <g transform="translate(52,160)">
+                <rect x="0" y="0" width="36" height="10" rx="2" fill="#111827"/>
+                <text x="18" y="8" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="8" fill="#9CA3AF">VΩ</text>
+                <rect x="52" y="0" width="36" height="10" rx="2" fill="#111827"/>
+                <text x="70" y="8" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="8" fill="#9CA3AF">A</text>
+              </g>
+              <g transform="translate(34,178)">
+                <rect x="0" y="0" width="10" height="44" rx="3" fill="#0f172a"/>
+                <rect x="2" y="2" width="6" height="40" rx="2" fill="url(#gAccent)"/>
+              </g>
+              <g transform="translate(196,178)">
+                <rect x="0" y="0" width="10" height="44" rx="3" fill="#0f172a"/>
+                <rect x="2" y="2" width="6" height="40" rx="2" fill="url(#gAccent)"/>
+              </g>
+              <text x="120" y="214" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-weight="600" font-size="14" fill="#9CA3AF">R-TECH</text>
+            </g>
+          </svg>
+        </div>
+
+        <div>
+          <h1 class="leading-tight">Cómputo Métrico de Cableado</h1>
+          <p class="lead">Conforme a la Reglamentación AEA 90364 y Norma IRAM 2183 (Argentina)</p>
+          <p class="caption">Esc. José Marti</p>
+        </div>
+      </div>
+
+      <!-- controls: versión + color picker + presets -->
+      <div class="flex items-center gap-3">
+        <div class="header-badge px-4 py-2 rounded-xl text-xs font-mono">
+          ⚙️ Versión 2.0
+        </div>
+
+        <div class="flex items-center gap-2">
+          <input id="brand-color-picker" type="color" value="#00E5FF" title="Forzar color de marca" class="h-10 w-10 p-0 border-0 rounded-lg shadow-sm" aria-label="Color de marca"/>
+          <button id="btn-apply-color" class="btn btn-primary" title="Aplicar color seleccionado">Aplicar</button>
+          <button id="btn-reset-color" class="btn btn-outline" title="Restaurar color del logo">Restaurar</button>
+        </div>
+      </div>
+    </header>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div class="lg:col-span-1 card p-6">
+        <h2 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2"><span class="text-xl">📋</span> Datos del Plano</h2>
+
+        <form id="form-calculo" class="space-y-4" aria-label="Formulario cálculo de tramos">
+          <div>
+            <label for="identificador" class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Nombre del Tramo / Ambiente</label>
+            <input id="identificador" name="identificador" type="text" placeholder="Ej: Circuito 1 - Dormitorio" required class="w-full p-3 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:outline-none transition" />
+          </div>
+
+          <div>
+            <label for="sistema" class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Tipo de Alimentación</label>
+            <select id="sistema" name="sistema" class="w-full p-3 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:outline-none transition">
+              <option value="monofasico">Monofásica (220V)</option>
+              <option value="bifasico">Bifásica (380V/220V)</option>
+              <option value="trifasico_tetrapolar">Trifásica Tetrapolar (380V)</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="distancia" class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Distancia Lineal en Plano (Metros)</label>
+            <input id="distancia" name="distancia" type="number" step="0.1" min="0.1" placeholder="Ej: 6.5" required class="w-full p-3 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:outline-none transition" />
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label for="boca_inicio" class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Caja Origen</label>
+              <select id="boca_inicio" name="boca_inicio" class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm">
+                <option value="boca_techo">Boca Techo (2.60m)</option>
+                <option value="boca_pared_alta">Caja Alta (2.20m)</option>
+                <option value="llave_luz">Llave Luz (1.20m)</option>
+                <option value="toma_bajo">Toma Bajo (0.40m)</option>
+              </select>
+            </div>
+            <div>
+              <label for="boca_fin" class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Caja Destino</label>
+              <select id="boca_fin" name="boca_fin" class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm">
+                <option value="toma_bajo">Toma Bajo (0.40m)</option>
+                <option value="toma_cocina">Toma Cocina (1.20m)</option>
+                <option value="llave_luz">Llave Luz (1.20m)</option>
+                <option value="boca_techo">Boca Techo (2.60m)</option>
+              </select>
+            </div>
+          </div>
+
+          <button type="submit" class="w-full mt-2 btn btn-primary">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M12 4v12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 8l4-4 4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            ➕ Calcular y Añadir al Plano
+          </button>
+        </form>
+      </div>
+
+      <div class="lg:col-span-2 space-y-6">
+        <div id="area-reporte" class="card p-6">
+          <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-6">
+            <h2 class="text-xl font-bold text-slate-800 flex items-center gap-2"><span>📊</span> Resumen General de Cómputo</h2>
+            <button id="btn-pdf" onclick="exportarPDF()" class="btn btn-success icon-accent inline-flex items-center gap-2">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M7 10l5-5 5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 5v12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              📥 Exportar Reporte PDF
+            </button>
+          </div>
+
+          <div id="estado-vacio" class="text-center py-12 text-slate-400">
+            <p class="text-5xl mb-3">📐</p>
+            <p class="text-sm font-medium">No hay tramos calculados todavía.</p>
+            <p class="text-xs mt-1 text-slate-400">Ingresá las medidas de tu plano a la izquierda para empezar.</p>
+          </div>
+
+          <div id="tabla-tramos-contenedor" class="hidden overflow-x-auto mb-6 lista-destacada">
+            <table class="w-full text-sm text-left text-slate-500">
+              <thead class="text-xs uppercase bg-slate-50 text-slate-700 font-bold border-b border-slate-200">
+                <tr>
+                  <th class="px-4 py-3">Tramo / Ambiente</th>
+                  <th class="px-4 py-3">Sistema</th>
+                  <th class="px-4 py-3 text-center">Cañería Real (m)</th>
+                  <th class="px-4 py-3 text-right">Acción</th>
+                </tr>
+              </thead>
+              <tbody id="lista-tramos-tabla"></tbody>
+            </table>
+          </div>
+
+          <div id="consolidado-materiales" class="hidden border-t border-slate-100 pt-6">
+            <h3 class="text-sm font-bold uppercase tracking-wider text-slate-400 mb-4">🛒 Total de Cables Requeridos por Color (IRAM)</h3>
+            <div id="tarjetas-totales" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="w-full text-center py-6 mt-8 bg-slate-800 text-slate-400 text-sm border-t border-slate-700">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-2 px-4">
+      <div>
+        <p class="text-white font-semibold">Diseñador Web Juan Pablo Ridríguez</p>
+        <p class="caption">© 2026 Aplicación de Ingeniería Eléctrica</p>
+      </div>
+      <div class="text-xs text-slate-300">
+        Fecha y hora: <span id="footer-datetime" class="text-mono"></span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
+</html>

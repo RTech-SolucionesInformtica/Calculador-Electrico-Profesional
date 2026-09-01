@@ -1,0 +1,248 @@
+/* name=styles.css */
+
+/* Variables de tema - ajustá colores aquí si lo necesitás */
+:root{
+  --brand-900: #0f172a; /* fondo header oscuro */
+  --brand-800: #1e40af; /* azul principal */
+  --brand-700: #2563eb;
+  --accent: #06b6d4;    /* acento */
+  --muted: #64748b;
+  --bg: #f1f5f9;
+  --card-bg: #ffffff;
+  --glass: rgba(255,255,255,0.6);
+  --shadow-sm: 0 1px 2px rgba(15,23,42,0.04);
+  --shadow-md: 0 6px 20px rgba(2,6,23,0.10);
+  --rounded: 14px;
+  --max-width: 1200px;
+  --accent-contrast: #ffffff;
+  --success: #10b981;
+  --danger: #ef4444;
+  --muted-2: #94a3b8;
+}
+
+/* Tipografía base */
+html,body{
+  height:100%;
+}
+body{
+  font-family: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: var(--bg);
+  color: #0f172a;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height:1.45;
+  -webkit-text-size-adjust:100%;
+}
+
+/* Contenedor principal centrado */
+.max-w-6xl {
+  max-width: var(--max-width);
+}
+
+/* Mejor contraste y suavizado para cabecera */
+header {
+  background: linear-gradient(90deg, rgba(14, 68, 163, 1) 0%, rgba(88, 28, 135, 1) 100%);
+  color: #fff;
+  border-radius: calc(var(--rounded) + 6px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Badge de versión */
+header .bg-blue-700\/50 {
+  background: rgba(59,130,246,0.14) !important;
+  backdrop-filter: blur(4px);
+}
+
+/* Cards (tarjetas) */
+.card, .bg-white {
+  background: var(--card-bg) !important;
+  border-radius: var(--rounded);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(15,23,42,0.04);
+}
+
+/* Inputs - ligeramente personalizados para mantener accesibilidad */
+input[type="text"],
+input[type="number"],
+select,
+textarea {
+  border-radius: 12px;
+  border: 1px solid rgba(2,6,23,0.06);
+  background: #fbfdff;
+  padding: 0.65rem 0.75rem;
+  transition: box-shadow .18s ease, transform .08s ease;
+}
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  box-shadow: 0 6px 20px rgba(37,99,235,0.12);
+  border-color: rgba(37,99,235,0.9);
+  transform: translateY(-1px);
+}
+
+/* Botones principales */
+.btn {
+  display:inline-flex;
+  align-items:center;
+  gap:0.5rem;
+  padding: .6rem .9rem;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform .06s ease, box-shadow .12s ease, background-color .12s ease;
+  user-select:none;
+}
+.btn:active { transform: translateY(1px) scale(.997); }
+.btn:focus-visible { outline: 3px solid rgba(37,99,235,0.16); outline-offset: 2px; }
+
+/* Botón primario */
+.btn-primary, .bg-blue-600 {
+  background: linear-gradient(180deg, var(--brand-700), var(--brand-800));
+  color: var(--accent-contrast);
+  box-shadow: 0 6px 18px rgba(37,99,235,0.14);
+}
+.btn-primary:hover { filter: brightness(.98); }
+
+/* Botón éxito / exportar */
+.btn-success, .bg-emerald-600 {
+  background: linear-gradient(180deg, #10b981, #059669);
+  color: #fff;
+  box-shadow: 0 6px 18px rgba(5,150,105,0.12);
+}
+
+/* Botón peligro */
+.btn-danger {
+  background: linear-gradient(180deg, #fb7185, #ef4444);
+  color: #fff;
+}
+
+/* Tabla: más legible y compacta */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: transparent;
+}
+table thead th {
+  font-size: .72rem;
+  letter-spacing: .06em;
+  color: var(--muted);
+  border-bottom: 1px solid rgba(2,6,23,0.04);
+  padding: .75rem 1rem;
+}
+table tbody td {
+  padding: .75rem 1rem;
+  vertical-align: middle;
+  font-size: .92rem;
+  color: #0f172a;
+}
+table tr:hover td { background: #fbfdff; }
+
+/* Tarjeta de totales */
+.total-card {
+  border-radius: 12px;
+  padding: 1rem;
+  background: linear-gradient(180deg, #ffffff, #fbfdff);
+  border: 1px solid rgba(2,6,23,0.04);
+  box-shadow: 0 4px 14px rgba(2,6,23,0.04);
+}
+
+/* Pie de página */
+footer {
+  background: linear-gradient(180deg, #0b1220, #0f172a);
+  color: rgba(255,255,255,0.85);
+}
+
+/* Iconos grandes en tarjetas */
+.icono-tarjeta {
+  width:48px;
+  height:48px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:10px;
+  background: linear-gradient(180deg, rgba(99,102,241,0.08), rgba(2,6,23,0.02));
+  font-size:1.4rem;
+}
+
+/* Indicadores pequeños */
+.badge {
+  display:inline-block;
+  padding: .18rem .5rem;
+  border-radius: 999px;
+  font-size:.75rem;
+  background: rgba(15,23,42,0.06);
+  color: var(--muted-2);
+  font-weight:600;
+}
+
+/* Sombra para destacar listas */
+.lista-destacada {
+  box-shadow: 0 8px 30px rgba(2,6,23,0.06);
+  border-radius: 12px;
+}
+
+/* Focus visible para accesibilidad */
+:focus-visible {
+  outline: 3px solid rgba(99,102,241,0.16);
+  outline-offset: 2px;
+}
+
+/* Animaciones sutiles */
+.fade-in {
+  animation: fadeIn .36s ease both;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Utilities */
+.text-mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace; }
+
+/* -----------------------------
+   Estilos para impresión/PDF
+   ----------------------------- */
+@media print {
+  html, body {
+    background: #fff !important;
+    color: #000 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    font-size: 12pt;
+  }
+
+  * {
+    box-shadow: none !important;
+  }
+
+  #btn-pdf,
+  button,
+  .cursor-pointer,
+  .btn,
+  input, select, textarea {
+    display: none !important;
+  }
+
+  .rounded-2xl, .card, .bg-white {
+    border-radius: 0 !important;
+    background: #fff !important;
+    border: 1px solid #eee !important;
+  }
+
+  table thead th {
+    color: #222 !important;
+    background: #f7f7f7 !important;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .card, #area-reporte {
+    page-break-inside: avoid;
+  }
+
+  .page-break { page-break-after: always; }
+}
+
+@media (max-width: 640px) {
+  header { padding: 1rem; }
+  .max-w-6xl { padding: 0 1rem; }
+  .icono-tarjeta { width:44px; height:44px; }
+}

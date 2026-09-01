@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copia de respaldo del multímetro en assets (no es necesario si usas inline SVG en index.html) -->
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240" role="img" aria-label="Multímetro R-TECH">
+  <defs>
+    <linearGradient id="gAccent" x1="0" x2="1">
+      <stop offset="0" stop-color="#00E5FF"/>
+      <stop offset="1" stop-color="#00B8D9"/>
+    </linearGradient>
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+  <g transform="scale(0.18)">
+    <rect x="28" y="18" width="184" height="204" rx="18" ry="18" fill="#0b1220"/>
+    <rect x="34" y="24" width="172" height="192" rx="14" ry="14" fill="#0f172a" filter="url(#shadow)"/>
+    <rect x="56" y="44" width="128" height="64" rx="6" ry="6" fill="rgba(255,255,255,0.04)"/>
+    <rect x="62" y="50" width="116" height="52" rx="4" ry="4" fill="url(#gAccent)" opacity="0.18"/>
+    <g transform="translate(0,6)">
+      <text x="120" y="86" text-anchor="middle" font-family="Merriweather, Inter, Arial, sans-serif" font-weight="700" font-size="36" fill="url(#gAccent)" opacity="0.95">R</text>
+    </g>
+    <circle cx="120" cy="128" r="28" fill="#0b1220" stroke="#1f2937" stroke-width="3"/>
+    <circle cx="120" cy="128" r="18" fill="#111827"/>
+    <rect x="118" y="110" width="4" height="24" rx="2" fill="url(#gAccent)" transform="rotate(45 120 122)"/>
+    <g transform="translate(52,160)">
+      <rect x="0" y="0" width="36" height="10" rx="2" fill="#111827"/>
+      <text x="18" y="8" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="8" fill="#9CA3AF">VΩ</text>
+      <rect x="52" y="0" width="36" height="10" rx="2" fill="#111827"/>
+      <text x="70" y="8" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="8" fill="#9CA3AF">A</text>
+    </g>
+    <g transform="translate(34,178)">
+      <rect x="0" y="0" width="10" height="44" rx="3" fill="#0f172a"/>
+      <rect x="2" y="2" width="6" height="40" rx="2" fill="url(#gAccent)"/>
+    </g>
+    <g transform="translate(196,178)">
+      <rect x="0" y="0" width="10" height="44" rx="3" fill="#0f172a"/>
+      <rect x="2" y="2" width="6" height="40" rx="2" fill="url(#gAccent)"/>
+    </g>
+    <text x="120" y="214" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-weight="600" font-size="14" fill="#9CA3AF">R-TECH</text>
+  </g>
+</svg>
